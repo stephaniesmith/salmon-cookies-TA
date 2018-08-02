@@ -2,17 +2,27 @@
 
 (function(module){
 
-    let html = module.html;
+    const html = module.html;
+    let StoreList = module.StoreList;
 
-    let template = () => {
+    const template = () => {
         return html`
             <h1>Hello World</h1>
+            <main></main>
         `;
     };
 
     class App {
         render() {
-            let dom = template();
+            const dom = template();
+            const main = dom.querySelector('main');
+
+            const storeList = new StoreList({
+                name: 'THIS IS MY STORE NAME!!!!'
+            });
+
+            main.appendChild(storeList.render());
+
             return dom;
         }
     }
