@@ -31,7 +31,6 @@
                 </tbody>
                 <tfoot>
                 </tfoot>
-
             </table>
         `;
     };
@@ -47,6 +46,8 @@
         update(props) {
             const stores = props.stores;
             const lastStores = this.lastStores;
+            console.log('tfoot', this.tfoot.children);
+            this.tfoot.children[0].remove();
 
             for(let i = 0; i < lastStores.length; i++) {
                 const index = stores.indexOf(lastStores[i]);
@@ -58,7 +59,10 @@
                 const store = stores[i];
                 if(lastStores.includes(store)) continue;
                 this.renderStore(store, 'tbody');
+                this.calcTotals(store);
             }
+
+            this.renderStore(this.hourlyTotals, 'tfoot');
 
             this.lastStores = stores.slice();
         }
@@ -75,28 +79,32 @@
             this.countSpan.textContent = count;
         }
 
+        calcTotals(store) {
+            const { cookiesPerHour } = this.hourlyTotals;
+            store.cookiesPerHour.forEach((cookies, index) => {
+                cookiesPerHour[index] += cookies;
+            });
+            this.hourlyTotals.totalCookiesSold = cookiesPerHour.reduce((acum, sum) => acum + sum);
+        }
+
         render() {
             const stores = this.stores;
             let dom = template();
             this.tbody = dom.querySelector('tbody');
             this.tfoot = dom.querySelector('tfoot');
 
-            const hourlyTotals = {
+            this.hourlyTotals = {
                 name: 'Hourly Totals',
                 cookiesPerHour: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             };
 
-            stores.forEach(store => {
-                const { cookiesPerHour } = hourlyTotals;
 
+            stores.forEach(store => {
                 this.renderStore(store, 'tbody');
-                store.cookiesPerHour.forEach((cookies, index) => {
-                    cookiesPerHour[index] += cookies;
-                });
-                hourlyTotals.totalCookiesSold = cookiesPerHour.reduce((acum, sum) => acum + sum);
+                this.calcTotals(store);
             });
 
-            this.renderStore(hourlyTotals, 'tfoot');
+            this.renderStore(this.hourlyTotals, 'tfoot');
 
             return dom;
         }
