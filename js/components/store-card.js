@@ -6,10 +6,11 @@
 
     let template = store => {
         return html`
-            <h2>${store.name}</h2>
+            <tr>
+                <td>${store.name}</td>
+            </tr>
         `;
     };
-
 
     class StoreCard {
         constructor(props) {
@@ -17,6 +18,7 @@
         }
 
         render() {
+
             const dom = template(this.store);
             return dom;
         }
