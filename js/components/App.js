@@ -3,27 +3,9 @@
 (function(module){
 
     const html = module.html;
-    let StoreList = module.StoreList;
-    let StoreForm = module.StoreForm;
-    
-    const data = [
-        {
-            name: 'Store 1',
-            minCustomersPerHour: 3,
-            maxCustomersPerHour: 10,
-            averageCookiesSoldPerHour: 3.7,
-            cookiesPerHour: [],
-            totalsCookiesSold: 0
-        },
-        {
-            name: 'Store 2',
-            minCustomersPerHour: 5,
-            maxCustomersPerHour: 36,
-            averageCookiesSoldPerHour: 2.4,
-            cookiesPerHour: [],
-            totalsCookiesSold: 0
-        }
-    ];
+    const StoreList = module.StoreList;
+    const StoreForm = module.StoreForm;
+    const storeApi = module.storeApi;
     
     const template = () => {
         return html`
@@ -37,17 +19,17 @@
             const dom = template();
             const main = dom.querySelector('main');
 
+            const stores = storeApi.get();
+            console.log(stores);
             const storeList = new StoreList({
-                stores: data
+                stores: stores
             });
 
             const storeForm = new StoreForm({
                 onAdd: (store) => {
-                    const newStores = [...data, store];
-                    console.log(newStores);
-
+                    storeApi.add(store);
                     storeList.update({
-                        stores: newStores
+                        stores: stores
                     });
                 }
             });
