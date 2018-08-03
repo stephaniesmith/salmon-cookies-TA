@@ -4,13 +4,24 @@
 
     const html = module.html;
     let StoreList = module.StoreList;
+    let StoreForm = module.StoreForm;
     
     const data = [
         {
-            name: 'Store 1'
+            name: 'Store 1',
+            minCustomersPerHour: 3,
+            maxCustomersPerHour: 10,
+            averageCookiesSoldPerHour: 3.7,
+            cookiesPerHour: [],
+            totalsCookiesSold: 0
         },
         {
-            name: 'Store 2'
+            name: 'Store 2',
+            minCustomersPerHour: 5,
+            maxCustomersPerHour: 36,
+            averageCookiesSoldPerHour: 2.4,
+            cookiesPerHour: [],
+            totalsCookiesSold: 0
         }
     ];
     
@@ -23,8 +34,6 @@
     
     class App {
         render() {
-            
-
             const dom = template();
             const main = dom.querySelector('main');
 
@@ -32,6 +41,18 @@
                 stores: data
             });
 
+            const storeForm = new StoreForm({
+                onAdd: (store) => {
+                    const newStores = [...data, store];
+                    console.log(newStores);
+
+                    storeList.update({
+                        stores: newStores
+                    });
+                }
+            });
+
+            main.appendChild(storeForm.render());
             main.appendChild(storeList.render());
 
             return dom;
