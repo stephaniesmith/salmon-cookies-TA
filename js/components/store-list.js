@@ -23,6 +23,7 @@
                     <td>5:00 pm</td>
                     <td>6:00 pm</td>
                     <td>7:00 pm</td>
+                    <td>Daily Totals</td>
                 </tr>
 
             </table>
