@@ -7,30 +7,76 @@
 
     const template = () => {
         return html`
-            <section>
-                <p>ALL THE STORE LISTS!!!</p>
-            </section>
+            <table>
+                <tr>
+                    <td>Stores</td>
+                    <td>7:00 am</td>
+                    <td>8:00 am</td>
+                    <td>9:00 am</td>
+                    <td>10:00 am</td>
+                    <td>11:00 am</td>
+                    <td>12:00 am</td>
+                    <td>1:00 pm</td>
+                    <td>2:00 pm</td>
+                    <td>3:00 pm</td>
+                    <td>4:00 pm</td>
+                    <td>5:00 pm</td>
+                    <td>6:00 pm</td>
+                    <td>7:00 pm</td>
+                </tr>
+
+            </table>
         `;
     };
 
     
     class StoreList {
         constructor(props) {
-            this.name = props.name;
+            this.stores = props.stores;
+            this.lastStores = this.stores.slice();
+            // this.onRemove = props.onRemove;
         }
+
+        update(props) {
+            const stores = props.stores;
+            const lastStores = this.lastStores;
+
+            for(let i = 0; i < lastStores.length; i++) {
+                const index = stores.indexOf(lastStores[i]);
+                if(index > -1) continue;
+                this.table.children[i].remove();
+            }
+
+            for(let i = 0; stores.length; i++) {
+                const store = stores[i];
+                if(lastStores.includes(store)) continue;
+                this.renderStore(store);
+            }
+
+            // this.updateCount(stores.length);
+            this.lastStores = stores.slice();
+        }
+
         renderStore(store) {
             const storeCard = new StoreCard({
                 store: store
             });
-            this.section.appendChild(storeCard.render());
+
+            this.table.appendChild(storeCard.render());
+        }
+
+        updateCount(count) {
+            this.countSpan.textContent = count;
         }
 
         render() {
-            const name = this.name;
+            const stores = this.stores;
             let dom = template();
-            this.section = dom.querySelector('section');
+            this.table = dom.querySelector('table');
 
-            this.section.appendChild(name);
+            for(let i = 0; i < stores.length; i++) {
+                this.renderStore(stores[i]);
+            }
 
             return dom;
         }
