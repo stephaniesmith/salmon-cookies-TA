@@ -4,21 +4,32 @@
 
     const html = module.html;
     let StoreList = module.StoreList;
-
+    
+    const data = [
+        {
+            name: 'Store 1'
+        },
+        {
+            name: 'Store 2'
+        }
+    ];
+    
     const template = () => {
         return html`
-            <h1>Hello World</h1>
-            <main></main>
+        <h1>Hello World</h1>
+        <main></main>
         `;
     };
-
+    
     class App {
         render() {
+            
+
             const dom = template();
             const main = dom.querySelector('main');
 
             const storeList = new StoreList({
-                name: 'THIS IS MY STORE NAME!!!!'
+                stores: data
             });
 
             main.appendChild(storeList.render());
