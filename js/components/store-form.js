@@ -41,11 +41,10 @@
 
                 this.store = {
                     name: data[0],
-                    minCustomersPerHour: data[1],
-                    maxCustomersPerHour: data[2],
+                    min: data[1],
+                    max: data[2],
                     averageCookiesSoldPerHour: data[3],
-                    cookiesPerHour: [],
-                    totalsCookiesSold: 0
+                    cookiesPerHour: []
                 };
 
                 console.log(this.store);
