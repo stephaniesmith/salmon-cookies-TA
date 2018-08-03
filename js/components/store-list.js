@@ -8,23 +8,29 @@
     const template = () => {
         return html`
             <table>
-                <tr>
-                    <td>Stores</td>
-                    <td>7:00 am</td>
-                    <td>8:00 am</td>
-                    <td>9:00 am</td>
-                    <td>10:00 am</td>
-                    <td>11:00 am</td>
-                    <td>12:00 am</td>
-                    <td>1:00 pm</td>
-                    <td>2:00 pm</td>
-                    <td>3:00 pm</td>
-                    <td>4:00 pm</td>
-                    <td>5:00 pm</td>
-                    <td>6:00 pm</td>
-                    <td>7:00 pm</td>
-                    <td>Daily Totals</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <td class="name">Stores</td>
+                        <td>7 am</td>
+                        <td>8 am</td>
+                        <td>9 am</td>
+                        <td>10 am</td>
+                        <td>11 am</td>
+                        <td>12 am</td>
+                        <td>1 pm</td>
+                        <td>2 pm</td>
+                        <td>3 pm</td>
+                        <td>4 pm</td>
+                        <td>5 pm</td>
+                        <td>6 pm</td>
+                        <td>7 pm</td>
+                        <td>Daily Totals</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                </tfoot>
 
             </table>
         `;
@@ -51,18 +57,18 @@
             for(let i = 0; i < stores.length; i++) {
                 const store = stores[i];
                 if(lastStores.includes(store)) continue;
-                this.renderStore(store);
+                this.renderStore(store, 'tbody');
             }
 
             this.lastStores = stores.slice();
         }
 
-        renderStore(store) {
+        renderStore(store, element) {
             const storeCard = new StoreCard({
                 store: store
             });
 
-            this.table.appendChild(storeCard.render());
+            this[element].appendChild(storeCard.render());
         }
 
         updateCount(count) {
@@ -72,11 +78,25 @@
         render() {
             const stores = this.stores;
             let dom = template();
-            this.table = dom.querySelector('table');
+            this.tbody = dom.querySelector('tbody');
+            this.tfoot = dom.querySelector('tfoot');
 
-            for(let i = 0; i < stores.length; i++) {
-                this.renderStore(stores[i]);
-            }
+            const hourlyTotals = {
+                name: 'Hourly Totals',
+                cookiesPerHour: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            };
+
+            stores.forEach(store => {
+                const { cookiesPerHour } = hourlyTotals;
+
+                this.renderStore(store, 'tbody');
+                store.cookiesPerHour.forEach((cookies, index) => {
+                    cookiesPerHour[index] += cookies;
+                });
+                hourlyTotals.totalCookiesSold = cookiesPerHour.reduce((acum, sum) => acum + sum);
+            });
+
+            this.renderStore(hourlyTotals, 'tfoot');
 
             return dom;
         }
