@@ -47,13 +47,12 @@
                 this.table.children[i].remove();
             }
 
-            for(let i = 0; stores.length; i++) {
+            for(let i = 0; i < stores.length; i++) {
                 const store = stores[i];
                 if(lastStores.includes(store)) continue;
                 this.renderStore(store);
             }
 
-            // this.updateCount(stores.length);
             this.lastStores = stores.slice();
         }
 

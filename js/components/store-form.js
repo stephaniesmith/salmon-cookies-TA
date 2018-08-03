@@ -7,10 +7,10 @@
     const template = () => {
         return html`
             <form>
-                <input placeholder="name"/>
-                <input type="number" placeholder="min"/>
-                <input type="number" placeholder="max"/>
-                <input type="number" placeholder="average"/>
+                <input placeholder="name" required/>
+                <input type="number" placeholder="min" required/>
+                <input type="number" placeholder="max" required/>
+                <input type="number" placeholder="average" required/>
                 <button>Add Store</button>
             </form>
         `;
