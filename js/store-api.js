@@ -71,7 +71,7 @@
     window.resetStores = createStores;
 
     window.addEventListener('beforeunload', () => {
-        window.localStorage.setItem('fruits', JSON.stringify(stores));
+        window.localStorage.setItem('stores', JSON.stringify(stores));
     });
 
     const storeApi = {

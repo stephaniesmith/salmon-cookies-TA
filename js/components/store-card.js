@@ -7,7 +7,7 @@
     let template = store => {
         return html`
             <tr>
-                <td>${store.name}</td>
+                <td class="name">${store.name}</td>
                 <td>${store.cookiesPerHour[0]}</td>
                 <td>${store.cookiesPerHour[1]}</td>
                 <td>${store.cookiesPerHour[2]}</td>
@@ -21,7 +21,7 @@
                 <td>${store.cookiesPerHour[10]}</td>
                 <td>${store.cookiesPerHour[11]}</td>
                 <td>${store.cookiesPerHour[12]}</td>
-                <td>${store.totalCookiesSold}</td>
+                <td class="totals">${store.totalCookiesSold}</td>
             </tr>
         `;
     };

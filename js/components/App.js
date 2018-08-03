@@ -9,7 +9,7 @@
     
     const template = () => {
         return html`
-        <h1>Hello World</h1>
+        <h1>Pat's Salmon Cookies</h1>
         <main></main>
         `;
     };
