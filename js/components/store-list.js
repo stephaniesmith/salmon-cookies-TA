@@ -46,7 +46,6 @@
         update(props) {
             const stores = props.stores;
             const lastStores = this.lastStores;
-            console.log('tfoot', this.tfoot.children);
             this.tfoot.children[0].remove();
 
             for(let i = 0; i < lastStores.length; i++) {

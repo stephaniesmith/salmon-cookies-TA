@@ -37,8 +37,6 @@
                     data.push(store);
                 }
 
-                console.log(data);
-
                 this.store = {
                     name: data[0],
                     min: data[1],
@@ -46,9 +44,6 @@
                     averageCookiesSoldPerHour: data[3],
                     cookiesPerHour: []
                 };
-
-                console.log(this.store);
-                // this.store = inputs.map(input => input.value);
 
                 this.onAdd(this.store);
             });
