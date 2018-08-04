@@ -20,7 +20,7 @@
             const main = dom.querySelector('main');
 
             const stores = storeApi.get();
-            console.log(stores);
+
             const storeList = new StoreList({
                 stores: stores
             });
